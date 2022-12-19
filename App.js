@@ -6,53 +6,21 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import type {Node} from 'react';
 import {
   SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
-  View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import NavBar from './components/NavBar';
+import NasaPod from './components/NasaPoD';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
 
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -60,57 +28,54 @@ const App: () => Node = () => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const [nasaPod, setNasaPod] = useState(null);
+  const [people, setPeople] = useState(null);
+  const [launches, setLaunches] = useState(null);
+  const [selection, setSelection] = useState(null);
+  const [returnView, setReturnView] = useState(<></>);
 
+  useEffect(() => {
+    fetch(
+      'http://spacer2backend.eba-mmnzm8qm.us-east-1.elasticbeanstalk.com/api/nasapod',
+    ).then(r => {
+      if (r.ok) {
+        r.json()
+          .then(json => setNasaPod(json.Value))
+          .then(() => setSelection('nasapod'));
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (selection == 'nasapod') {
+      setReturnView(<NasaPod nasaPod={nasaPod} />);
+    }
+  }, [selection]);
+
+  function onButtonPress(buttonPressed) {
+    setSelection(buttonPressed);
+  }
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+    <SafeAreaView style={styles.mainContainer}>
+      <ScrollView style={styles.returnWindown}>{returnView}</ScrollView>
+      <NavBar style={styles.navBar} onButtonPress={onButtonPress} />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  mainContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignContent: 'flex-end',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  navBar: {
+    flexBasis: '9%',
+    zIndex: 1,
+    position: 'fixed',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  returnWindown: {
+    flexBasis: '91%',
   },
 });
 

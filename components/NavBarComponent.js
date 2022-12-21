@@ -1,6 +1,6 @@
 import React from 'react';
-import {TouchableOpacity, View, StyleSheet, Text, Image} from 'react-native';
-function NavBar({onButtonPress}) {
+import {TouchableOpacity, View, StyleSheet, Image} from 'react-native';
+function NavBarComponent({onButtonPress}) {
   function handleButtonPress(buttonPressed) {
     onButtonPress(buttonPressed);
   }
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NavBar;
+export default NavBarComponent;

@@ -16,8 +16,9 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import NavBar from './components/NavBar';
-import NasaPod from './components/NasaPoD';
+import NavBarComponent from './components/NavBarComponent';
+import NasaPoDComponent from './components/NasaPoDComponent';
+import PeopleComponent from './components/PeopleComponent';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -47,8 +48,20 @@ const App: () => Node = () => {
   }, []);
 
   useEffect(() => {
+    fetch(
+      'http://spacer2backend.eba-mmnzm8qm.us-east-1.elasticbeanstalk.com/api/people',
+    ).then(r => {
+      if (r.ok) {
+        r.json().then(json => setPeople(json.Value));
+      }
+    });
+  }, []);
+
+  useEffect(() => {
     if (selection == 'nasapod') {
-      setReturnView(<NasaPod nasaPod={nasaPod} />);
+      setReturnView(<NasaPoDComponent nasaPod={nasaPod} />);
+    } else if (selection == 'people') {
+      setReturnView(<PeopleComponent people={people} />);
     }
   }, [selection]);
 
@@ -58,7 +71,7 @@ const App: () => Node = () => {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <ScrollView style={styles.returnWindown}>{returnView}</ScrollView>
-      <NavBar style={styles.navBar} onButtonPress={onButtonPress} />
+      <NavBarComponent style={styles.navBar} onButtonPress={onButtonPress} />
     </SafeAreaView>
   );
 };

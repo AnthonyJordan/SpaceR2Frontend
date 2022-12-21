@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Text, Image} from 'react-native';
-function NasaPod({nasaPod}) {
+function NasaPoDComponent({nasaPod}) {
   const imageUrl = nasaPod.hdurl ? nasaPod.hdurl : nasaPod.url;
   return (
     <View style={styles.container}>
@@ -27,4 +27,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NasaPod;
+export default NasaPoDComponent;

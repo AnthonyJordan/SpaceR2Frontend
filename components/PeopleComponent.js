@@ -1,13 +1,13 @@
 import React from 'react';
 import {View, StyleSheet, Text, Linking, TouchableOpacity} from 'react-native';
 function PeopleComponent({people}) {
-  //splits people into arrays based on craft
-
   async function handleButtonPress(name, craft) {
     await Linking.openURL(
       'https://www.google.com/search?q=' + name + '+' + craft,
     );
   }
+
+  //splits people into arrays based on craft
   let personSort = [];
   people.forEach(person => {
     personSort[person.Craft]

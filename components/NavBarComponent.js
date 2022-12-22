@@ -15,7 +15,7 @@ function NavBarComponent({onButtonPress}) {
       <TouchableOpacity>
         <Image source={require('../assets/icons8-rocket-64.png')} />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => handleButtonPress('isslocation')}>
         <Image source={require('../assets/icons8-space-station-64.png')} />
       </TouchableOpacity>
     </View>

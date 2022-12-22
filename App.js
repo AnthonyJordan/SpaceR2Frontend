@@ -19,6 +19,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import NavBarComponent from './components/NavBarComponent';
 import NasaPoDComponent from './components/NasaPoDComponent';
 import PeopleComponent from './components/PeopleComponent';
+import ISSLocationComponent from './components/ISSLocationComponent';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -62,6 +63,9 @@ const App: () => Node = () => {
       setReturnView(<NasaPoDComponent nasaPod={nasaPod} />);
     } else if (selection == 'people') {
       setReturnView(<PeopleComponent people={people} />);
+    } else if (selection == 'launches') {
+    } else if (selection == 'isslocation') {
+      setReturnView(<ISSLocationComponent />);
     }
   }, [selection]);
 

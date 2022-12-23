@@ -4,6 +4,11 @@ import MapView, {Marker} from 'react-native-maps';
 function ISSLocationComponent() {
   const [ISSLocation, setISSLocation] = useState({latitude: 0, longitude: 0});
   useEffect(() => {
+    fetch('http://api.open-notify.org/iss-now.json').then(r => {
+      if (r.ok) {
+        r.json().then(json => setISSLocation(json.iss_position));
+      }
+    });
     const interval = setInterval(() => {
       fetch('http://api.open-notify.org/iss-now.json').then(r => {
         if (r.ok) {

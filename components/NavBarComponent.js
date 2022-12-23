@@ -12,7 +12,7 @@ function NavBarComponent({onButtonPress}) {
       <TouchableOpacity onPress={() => handleButtonPress('people')}>
         <Image source={require('../assets/icons8-astronaut-64.png')} />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => handleButtonPress('launches')}>
         <Image source={require('../assets/icons8-rocket-64.png')} />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => handleButtonPress('isslocation')}>

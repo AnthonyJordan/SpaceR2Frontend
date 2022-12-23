@@ -9,6 +9,7 @@
 import React, {useState, useEffect} from 'react';
 import type {Node} from 'react';
 import {
+  ImageBackground,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -20,6 +21,7 @@ import NavBarComponent from './components/NavBarComponent';
 import NasaPoDComponent from './components/NasaPoDComponent';
 import PeopleComponent from './components/PeopleComponent';
 import ISSLocationComponent from './components/ISSLocationComponent';
+import RocketLaunchesComponent from './components/RocketLaunchesComponent';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -57,6 +59,15 @@ const App: () => Node = () => {
       }
     });
   }, []);
+  useEffect(() => {
+    fetch(
+      'http://spacer2backend.eba-mmnzm8qm.us-east-1.elasticbeanstalk.com/api/launches',
+    ).then(r => {
+      if (r.ok) {
+        r.json().then(json => setLaunches(json.Value));
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (selection == 'nasapod') {
@@ -64,6 +75,7 @@ const App: () => Node = () => {
     } else if (selection == 'people') {
       setReturnView(<PeopleComponent people={people} />);
     } else if (selection == 'launches') {
+      setReturnView(<RocketLaunchesComponent launches={launches} />);
     } else if (selection == 'isslocation') {
       setReturnView(<ISSLocationComponent />);
     }
@@ -74,7 +86,10 @@ const App: () => Node = () => {
   }
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <ScrollView style={styles.returnWindown}>{returnView}</ScrollView>
+      <ImageBackground
+        source={require('./assets/Space_Shuttle_Columbia_launching.jpg')}>
+        <ScrollView style={styles.returnWindown}>{returnView}</ScrollView>
+      </ImageBackground>
       <NavBarComponent style={styles.navBar} onButtonPress={onButtonPress} />
     </SafeAreaView>
   );
@@ -93,6 +108,7 @@ const styles = StyleSheet.create({
   },
   returnWindown: {
     flexBasis: '91%',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
 });
 

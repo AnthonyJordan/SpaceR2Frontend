@@ -14,14 +14,14 @@ function PeopleComponent({people}) {
       ? personSort[person.Craft].push(
           <TouchableOpacity
             key={person.Name}
-            onPress={e => handleButtonPress(person.Name, person.Craft)}>
+            onPress={() => handleButtonPress(person.Name, person.Craft)}>
             <Text style={styles.personText}>{person.Name}</Text>
           </TouchableOpacity>,
         )
       : (personSort[person.Craft] = [
           <TouchableOpacity
             key={person.Name}
-            onPress={e => handleButtonPress(person.Name, person.Craft)}>
+            onPress={() => handleButtonPress(person.Name, person.Craft)}>
             <Text style={styles.personText}>{person.Name}</Text>
           </TouchableOpacity>,
         ]);
@@ -31,33 +31,43 @@ function PeopleComponent({people}) {
   Object.keys(personSort).forEach(key =>
     returnView.push(
       <View style={styles.craft} key={key}>
-        <Text>Spacecraft:</Text>
+        <Text style={styles.spaceCraftText}>Spacecraft:</Text>
         <Text style={styles.craftText}>{key}</Text>
         {personSort[key]}
       </View>,
     ),
   );
+
   return <View style={styles.container}>{returnView}</View>;
 }
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'stretch',
-    backgroundColor: '#babfbb',
+  },
+  spaceCraftText: {
+    fontSize: 16,
+    color: '#858585',
   },
   craft: {
     alignItems: 'center',
     padding: 10,
-    borderBottomWidth: 2,
+    borderWidth: 2,
     borderColor: 'black',
+    backgroundColor: '#48424d',
+    margin: 10,
+    opacity: 0.85,
   },
   craftText: {
     fontSize: 30,
     fontWeight: 'bold',
+    color: '#858585',
   },
   personText: {
     fontSize: 20,
     padding: 5,
+    color: '#5b7deb',
+    textDecorationLine: 'underline',
   },
 });
 

@@ -20,8 +20,8 @@ function ISSLocationComponent() {
   }, []);
 
   return (
-    <View>
-      <Text>ISS Location</Text>
+    <View style={styles.container}>
+      <Text style={[styles.text, styles.title]}>ISS Location</Text>
       <MapView
         style={styles.mapView}
         region={{
@@ -38,8 +38,12 @@ function ISSLocationComponent() {
           title={'ISS Location'}
         />
       </MapView>
-      <Text>Longitude: {ISSLocation.longitude}</Text>
-      <Text>Latitude: {ISSLocation.latitude}</Text>
+      <Text style={[styles.text, styles.longLat]}>
+        Longitude: {ISSLocation.longitude}
+      </Text>
+      <Text style={[styles.text, styles.longLat]}>
+        Latitude: {ISSLocation.latitude}
+      </Text>
     </View>
   );
 }
@@ -48,6 +52,20 @@ const styles = StyleSheet.create({
   mapView: {
     height: 400,
     width: 355,
+  },
+  container: {
+    alignItems: 'center',
+  },
+  text: {
+    color: '#d2d5d9',
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 30,
+    padding: 10,
+  },
+  longLat: {
+    fontSize: 20,
   },
 });
 

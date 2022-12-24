@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
     alignContent: 'flex-end',
   },
   navBar: {
-    flexBasis: '9%',
+    flexBasis: '8%',
     zIndex: 1,
     position: 'fixed',
   },
   returnWindown: {
-    flexBasis: '91%',
+    flexBasis: '92%',
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
 });

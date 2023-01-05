@@ -5,6 +5,13 @@ import AutoDimensionImage, {
 } from 'react-native-auto-dimensions-image';
 function NasaPoDComponent({nasaPod}) {
   const imageUrl = nasaPod.hdurl ? nasaPod.hdurl : nasaPod.url;
+  if (!nasaPod) {
+    return (
+      <View>
+        <Text>Error: nasaPod not found</Text>
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <Text style={[styles.text, styles.title]}>{nasaPod?.title}</Text>

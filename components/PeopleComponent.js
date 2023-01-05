@@ -6,6 +6,13 @@ function PeopleComponent({people}) {
       'https://www.google.com/search?q=' + name + '+' + craft,
     );
   }
+  if (!people) {
+    return (
+      <View>
+        <Text>Error: people not found</Text>
+      </View>
+    );
+  }
 
   //splits people into arrays based on craft
   let personSort = [];
